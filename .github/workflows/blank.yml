@@ -1,0 +1,17 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secret.AWS_ACCESS_KEY_ID }}
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Show var
+        run: echo $AWS_ACCESS_KEY_ID
