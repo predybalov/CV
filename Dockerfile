@@ -1,3 +1,1 @@
-FROM alpine:latest
-
-ENTRYPOINT ["free"]
+FROM nginx:stable-alpine
