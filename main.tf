@@ -5,6 +5,13 @@ terraform {
       version = "3.70.0"
     }
   }
+  
+  cloud {
+    organization = "gelios"
+    workspaces {
+      name = "terractions"
+    }
+  }
 }
   
 provider "aws" {
