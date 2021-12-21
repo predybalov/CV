@@ -30,6 +30,7 @@ jobs:
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/predybalov.link:${{ github.sha }}
 
   deploy:
+    needs: build
     runs-on: ubuntu-latest
     
     steps:
