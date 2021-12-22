@@ -22,7 +22,6 @@ variable "docker_image" {
 
 provider "aws" {
   region                  = "eu-north-1"
-  shared_credentials_file = "~/terradocker/aws_creds"
 }
 
 # ssh-key for debug
