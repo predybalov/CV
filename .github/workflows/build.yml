@@ -28,7 +28,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/predybalov.link:${{ github.sha }}
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/cv:${{ github.sha }}
 
   deploy:
     needs: build
@@ -52,4 +52,7 @@ jobs:
         run: terraform init
         
       - name: Terraform Apply
-        run: terraform apply -auto-approve
+        env:
+          TF_VAR_docker_image: ${{ secrets.DOCKER_HUB_USERNAME }}/cv:${{ github.sha }}
+        run: echo $TF_VAR_docker_image
+        #run: terraform apply -auto-approve
