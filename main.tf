@@ -50,6 +50,7 @@ resource "aws_instance" "web" {
 resource "aws_eip" "CV" {
   instance = aws_instance.web.id
   vpc      = true
+}
 
 resource "aws_security_group" "web-sg" {
   name = "sgVC"
