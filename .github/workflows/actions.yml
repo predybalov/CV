@@ -34,7 +34,8 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     env:
-      TF_VAR_docker_image: ${{ secrets.DOCKER_HUB_USERNAME }}/cv:${{ github.sha }}
+       TF_VAR_docker_image: predybalov/cv:37b02fd4c67ac353eee0731c0e954e8412b32ae4
+#      TF_VAR_docker_image: ${{ secrets.DOCKER_HUB_USERNAME }}/cv:${{ github.sha }}
     
     steps:
       - name: Checkout 
