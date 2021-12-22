@@ -1,4 +1,4 @@
-name: CI
+name: CICD
 
 on:
 #  push:
@@ -54,5 +54,4 @@ jobs:
       - name: Terraform Apply
         env:
           TF_VAR_docker_image: ${{ secrets.DOCKER_HUB_USERNAME }}/cv:${{ github.sha }}
-        run: echo $TF_VAR_docker_image
-        #run: terraform apply -auto-approve
+        run: terraform apply -auto-approve
