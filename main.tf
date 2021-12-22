@@ -5,7 +5,7 @@ terraform {
       version = "3.70.0"
     }
   }
-  required_version = ">= 1.1.0"
+#  required_version = ">= 1.1.0"
 
   cloud {
     organization = "gelios"
