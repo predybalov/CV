@@ -55,4 +55,5 @@ jobs:
         run: terraform init
         
       - name: Terraform Apply
-        run: terraform apply -auto-approve
+        run: echo $TF_VAR_docker_image
+      #  run: terraform apply -auto-approve
