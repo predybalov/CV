@@ -46,6 +46,10 @@ resource "aws_instance" "web" {
   tags = {
     Name = "DockerCV"
   }
+  
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_eip" "CV" {
