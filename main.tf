@@ -18,6 +18,8 @@ terraform {
   
 variable "docker_image" {
   type = string
+  description = "Docker image name"
+  default = "docker:image"
 }
 
 provider "aws" {
