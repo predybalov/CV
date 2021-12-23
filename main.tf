@@ -54,7 +54,7 @@ resource "aws_eip" "CV" {
 }
 
 resource "aws_security_group" "web-sg" {
-  name = "sgVC"
+  name = "sgCV"
   ingress {
     from_port   = 22
     to_port     = 22
