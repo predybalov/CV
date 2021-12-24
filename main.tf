@@ -64,9 +64,9 @@ resource "aws_instance" "web" {
 
   user_data = <<-EOT
                  #!/bin/sh
-                 aws configure set default.region eu-north-1
-                # aws configure set aws_access_key_id ${var.aws_key_id}
-                # aws configure set aws_secret_access_key ${var.aws_secret_key}
+                 aws configure set region eu-north-1
+                 aws configure set aws_access_key_id ${var.aws_key_id}
+                 aws configure set aws_secret_access_key "${var.aws_secret_key}"
                  
                 # mkdir /home/ec2-user/ssl
                 # docker run -d -p 80:80 -p 443:443 ${var.docker_image}
