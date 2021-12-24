@@ -73,7 +73,7 @@ resource "aws_instance" "web" {
                  
                  echo "[default]" >> /home/ec2-user/.aws/credentials
                  echo "aws_access_key_id = ${var.aws_key_id}" >> /home/ec2-user/.aws/credentials
-                 echo "aws_secret_access_key = "${var.aws_secret_key}" >> /home/ec2-user/.aws/credentials
+                 echo "aws_secret_access_key = ${var.aws_secret_key}" >> /home/ec2-user/.aws/credentials
                                   
                  
                 # aws configure set region eu-north-1
