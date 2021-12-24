@@ -22,6 +22,30 @@ variable "docker_image" {
   default = "docker:image"
 }
 
+variable "aws_key_id" {
+  type = string
+  description = "AWS Key ID"
+  default = "ki"
+}
+
+variable "aws_secret_key" {
+  type = string
+  description = "AWS Secret Key"
+  default = "sk"
+}
+
+variable "aws_region" {
+  type = string
+  description = "AWS Default Region"
+  default = "dr"
+}
+
+variable "aws_format" {
+  type = string
+  description = "AWS Format"
+  default = "json"
+}
+
 provider "aws" {
   region                  = "eu-north-1"
 }
@@ -40,7 +64,10 @@ resource "aws_instance" "web" {
 
   user_data = <<-EOT
                  #!/bin/sh
-                 docker run -d -p 80:80 ${var.docker_image}
+                 export AWS_ACCESS_KEY_ID=${var.aws_key_id}
+                 export AWS_SECRET_ACCESS_KEY=${var.aws_secret_key}
+                 export AWS_DEFAULT_REGION=${var.aws_region}
+                 docker run -d -p 80:80 -p 443:443 --mount type=bind,source=/ssl,target=/ssl ${var.docker_image}
                  EOT
 
   tags = {
