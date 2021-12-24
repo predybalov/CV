@@ -56,4 +56,9 @@ jobs:
         run: terraform init
         
       - name: Terraform Apply
-        run: terraform apply -var 'docker_image="${{ secrets.DOCKER_HUB_USERNAME }}/cv:${{ github.sha }}"' -auto-approve
+        run: >
+          terraform apply
+          -var 'docker_image="${{ secrets.DOCKER_HUB_USERNAME }}/cv:${{ github.sha }}"'
+          -var 'aws_key_id="${{ secrets.AWS_ACCESS_KEY_ID }}"'
+          -var 'aws_secret_key="${{ secrets.AWS_SECRET_ACCESS_KEY }}"'
+          -auto-approve
