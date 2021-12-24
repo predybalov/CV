@@ -33,10 +33,6 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
-    env:
-      TF_VAR_aws_region: "eu-north-1"
-      TF_VAR_aws_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      TF_VAR_aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     
     steps:
       - name: Checkout 
@@ -61,4 +57,5 @@ jobs:
           -var 'docker_image="${{ secrets.DOCKER_HUB_USERNAME }}/cv:${{ github.sha }}"'
           -var 'aws_key_id="${{ secrets.AWS_ACCESS_KEY_ID }}"'
           -var 'aws_secret_key="${{ secrets.AWS_SECRET_ACCESS_KEY }}"'
+          -var 'aws_region="eu-north-1"'
           -auto-approve
