@@ -64,11 +64,11 @@ resource "aws_instance" "web" {
 
   user_data = <<-EOT
                  #!/bin/sh
-                 echo "AWS_ACCESS_KEY_ID=${var.aws_key_id}" | sudo tee /etc/profile.d/aws_creds.sh
-                 echo "AWS_SECRET_ACCESS_KEY=${var.aws_secret_key}" | sudo tee /etc/profile.d/aws_creds.sh
-                 echo "AWS_DEFAULT_REGION=eu-north-1" | sudo tee /etc/profile.d/aws_creds.sh
+                 aws configure set aws_access_key_id ${var.aws_key_id}
+                 aws configure set aws_secret_access_key ${var.aws_secret_key}
+                 aws configure set default.region eu-north-1
                  mkdir /home/ec2-user/ssl
-                 docker run -d -p 80:80 -p 443:443 --mount type=bind,source=/home/ec2-user/ssl,target=/ssl ${var.docker_image}
+                 docker run -d -p 80:80 -p 443:443 ${var.docker_image}
                  EOT
 
   tags = {
