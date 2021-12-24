@@ -46,6 +46,12 @@ variable "aws_format" {
   default = "json"
 }
 
+variable "aws_cert_bucket" {
+  type = string
+  description = "Certificate storage"
+  default = "cb"
+}
+
 provider "aws" {
   region                  = "eu-north-1"
 }
@@ -74,13 +80,12 @@ resource "aws_instance" "web" {
                  echo "[default]" >> /home/ec2-user/.aws/credentials
                  echo "aws_access_key_id = ${var.aws_key_id}" >> /home/ec2-user/.aws/credentials
                  echo "aws_secret_access_key = ${var.aws_secret_key}" >> /home/ec2-user/.aws/credentials
-                                  
                  
-                # aws configure set region eu-north-1
-                # aws configure set aws_access_key_id ${var.aws_key_id}
-                # aws configure set aws_secret_access_key "${var.aws_secret_key}"
                  mkdir /home/ec2-user/ssl
-                 sudo chown ec2-user:ec2-user /home/ec2-user/ssl                 
+                 sudo chown ec2-user:ec2-user /home/ec2-user/ssl  
+
+                 aws s3 cp ${var.aws_cert_bucket} /home/ec2-user/ssl/ --recursive
+
                 # docker run -d -p 80:80 -p 443:443 ${var.docker_image}
                  EOT
 
