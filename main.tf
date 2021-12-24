@@ -64,9 +64,9 @@ resource "aws_instance" "web" {
 
   user_data = <<-EOT
                  #!/bin/sh
-                 export AWS_ACCESS_KEY_ID=${var.aws_key_id}
-                 export AWS_SECRET_ACCESS_KEY=${var.aws_secret_key}
-                 export AWS_DEFAULT_REGION=eu-north-1
+                 echo "AWS_ACCESS_KEY_ID=${var.aws_key_id}" | sudo tee /etc/profile.d/aws_creds.sh
+                 echo "AWS_SECRET_ACCESS_KEY=${var.aws_secret_key}" | sudo tee /etc/profile.d/aws_creds.sh
+                 echo "AWS_DEFAULT_REGION=eu-north-1" | sudo tee /etc/profile.d/aws_creds.sh
                  mkdir /home/ec2-user/ssl
                  docker run -d -p 80:80 -p 443:443 --mount type=bind,source=/home/ec2-user/ssl,target=/ssl ${var.docker_image}
                  EOT
