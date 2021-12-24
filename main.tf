@@ -68,7 +68,7 @@ resource "aws_instance" "web" {
                  export AWS_SECRET_ACCESS_KEY=${var.aws_secret_key}
                  export AWS_DEFAULT_REGION=eu-north-1
                  mkdir /home/ec2-user/ssl
-                 docker run -d -p 80:80 -p 443:443 --mount type=bind,source=/ssl,target=/ssl ${var.docker_image}
+                 docker run -d -p 80:80 -p 443:443 --mount type=bind,source=/home/ec2-user/ssl,target=/ssl ${var.docker_image}
                  EOT
 
   tags = {
