@@ -83,9 +83,14 @@ data "aws_iam_policy_document" "accesstobucket" {
   }
 }
 
-resource "aws_iam_policy" "accesstocerts" {
+resource "aws_iam_role" "accesstocerts" {
   name   = "AccesToCerts"
-  policy = data.aws_iam_policy_document.accesstobucket.json
+  assume_role_policy = data.aws_iam_policy_document.accesstobucket.json
+}
+
+resource "aws_iam_instance_profile" "test_profile" {
+  name = "test_profile"
+  role = aws_iam_role.accesstocerts.name
 }
 
 resource "aws_instance" "web" {
