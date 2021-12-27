@@ -97,7 +97,7 @@ resource "aws_instance" "web" {
   ami                    = "ami-0fbfc98b313840e86"
   instance_type          = "t3.micro"
   vpc_security_group_ids = [aws_security_group.web-sg.id]
-  iam_instance_profile   = [aws_iam_instance_profile.test_profile.name]
+  iam_instance_profile   = "${aws_iam_instance_profile.test_profile.name]}"
   key_name               = "terradocker"
 
   user_data = <<-EOT
