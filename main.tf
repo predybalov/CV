@@ -62,10 +62,37 @@ resource "aws_key_pair" "terradocker" {
   public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC9MDLWvCRoaIoiTDHvgobpMyGVhDKsvCTqlrBUIrqcNhSigXUi6T9ImW4eiPJDnCkx5mmGpEt7HU7PZD8sZOkMxOcRNAYrJxK57Tq4ifS355DerQTa0UFJtyh7cCaUGrGLyud0WJ1pJeDV9cgbXprgUbqbiMOjuTueEnM8Nc5YpODq+jTwOF9A/3wuvLptx6h+rVQsZAKqHyF/IJvPfvMUN2B8GIKNCoZTVhcCg+6PUkX4S6aFLu4xngbykYSl56WfjFQpiwlNTElzA+uRkkPzsjmhLrz76LJGDC/v/3TlODdzLwfM5gK6u+TJLp+LfiVtYvHusi5WdP99XAniPjmneQD9epmWggkphv+xJZVPgtohRjedph9/r4q2FfNmWPBui4S3jeu5AOoXnfyEbgPO/vGdxuVyJ8pWam/jDAKVtCcUhlHx/tUC3C4tdZ9n4BfQre5zx9KLSwM3yWsjamNyIsz6Dyj5eEHDhweUyCKyYeK+QQBzYorPKz/xugIwIOU= gelios@gelios"
 }
 
+data "aws_iam_policy_document" "accesstobucket" {
+  statement {
+    effect = "Allow"
+    actions = [
+      "s3:ListBucket"
+    ]
+    resources = [
+      "arn:aws:s3:::gelios-cv"
+    ]
+  }
+  statement {
+    effect = "Allow"
+    actions = [
+      "s3:GetObject"
+    ]
+    resources = [
+      "arn:aws:s3:::gelios-cv/*"
+    ]
+  }
+}
+
+resource "aws_iam_policy" "accesstocerts" {
+  name   = "AccesToCerts"
+  policy = data.aws_iam_policy_document.accesstobucket.json
+}
+
 resource "aws_instance" "web" {
   ami                    = "ami-0fbfc98b313840e86"
   instance_type          = "t3.micro"
   vpc_security_group_ids = [aws_security_group.web-sg.id]
+  iam_instance_profile   = [aws_iam_policy.accesstocerts.name]
   key_name               = "terradocker"
 
   user_data = <<-EOT
