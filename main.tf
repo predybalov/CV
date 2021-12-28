@@ -62,7 +62,26 @@ resource "aws_key_pair" "terradocker" {
   public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC9MDLWvCRoaIoiTDHvgobpMyGVhDKsvCTqlrBUIrqcNhSigXUi6T9ImW4eiPJDnCkx5mmGpEt7HU7PZD8sZOkMxOcRNAYrJxK57Tq4ifS355DerQTa0UFJtyh7cCaUGrGLyud0WJ1pJeDV9cgbXprgUbqbiMOjuTueEnM8Nc5YpODq+jTwOF9A/3wuvLptx6h+rVQsZAKqHyF/IJvPfvMUN2B8GIKNCoZTVhcCg+6PUkX4S6aFLu4xngbykYSl56WfjFQpiwlNTElzA+uRkkPzsjmhLrz76LJGDC/v/3TlODdzLwfM5gK6u+TJLp+LfiVtYvHusi5WdP99XAniPjmneQD9epmWggkphv+xJZVPgtohRjedph9/r4q2FfNmWPBui4S3jeu5AOoXnfyEbgPO/vGdxuVyJ8pWam/jDAKVtCcUhlHx/tUC3C4tdZ9n4BfQre5zx9KLSwM3yWsjamNyIsz6Dyj5eEHDhweUyCKyYeK+QQBzYorPKz/xugIwIOU= gelios@gelios"
 }
 
-data "aws_iam_policy_document" "accesstobucket" {
+
+data "aws_iam_policy_document" "instance-assume-role-policy" {
+  statement {
+    actions = ["sts:AssumeRole"]
+
+    principals {
+      type        = "Service"
+      identifiers = ["ec2.amazonaws.com"]
+    }
+  }
+}
+
+resource "aws_iam_role" "instance" {
+  name               = "instance_role"
+  path               = "/system/"
+  assume_role_policy = data.aws_iam_policy_document.instance-assume-role-policy.json
+}
+
+
+data "aws_iam_policy_document" "example" {
   statement {
     effect = "Allow"
     actions = [
@@ -83,14 +102,20 @@ data "aws_iam_policy_document" "accesstobucket" {
   }
 }
 
-resource "aws_iam_role" "accesstocerts" {
-  name   = "AccesToCerts"
-  assume_role_policy = data.aws_iam_policy_document.accesstobucket.json
+resource "aws_iam_policy" "policydocument" {
+  name   = "tf-policydocument"
+  policy = data.aws_iam_policy_document.example.json
+}
+
+
+resource "aws_iam_role_policy_attachment" "test-attach" {
+  role       = aws_iam_role.instance.name
+  policy_arn = aws_iam_policy.policydocument.arn
 }
 
 resource "aws_iam_instance_profile" "test_profile" {
   name = "test_profile"
-  role = aws_iam_role.accesstocerts.name
+  role = aws_iam_role.instance.name
 }
 
 resource "aws_instance" "web" {
