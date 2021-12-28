@@ -142,6 +142,7 @@ resource "aws_instance" "web" {
                 # sudo chown ec2-user:ec2-user /home/ec2-user/ssl  
 
                  aws s3 cp s3://gelios-cv/certs /home/ec2-user/ssl/certs
+                 aws s3 cp s3://gelios-cv/private /home/ec2-user/ssl/private
 
                  docker run -d -p 80:80 -p 443:443 ${var.docker_image}
                  EOT
