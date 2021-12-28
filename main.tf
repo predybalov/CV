@@ -131,12 +131,12 @@ resource "aws_instance" "web" {
                  
                  sudo chown ec2-user:ec2-user /home/ec2-user/.aws
                  
-                 echo "[default]" >> /home/ec2-user/.aws/config
-                 echo "region = eu-north-1" >> /home/ec2-user/.aws/config
+                # echo "[default]" >> /home/ec2-user/.aws/config
+                # echo "region = eu-north-1" >> /home/ec2-user/.aws/config
                  
-                 echo "[default]" >> /home/ec2-user/.aws/credentials
-                 echo "aws_access_key_id = ${var.aws_key_id}" >> /home/ec2-user/.aws/credentials
-                 echo "aws_secret_access_key = ${var.aws_secret_key}" >> /home/ec2-user/.aws/credentials
+                # echo "[default]" >> /home/ec2-user/.aws/credentials
+                # echo "aws_access_key_id = ${var.aws_key_id}" >> /home/ec2-user/.aws/credentials
+                # echo "aws_secret_access_key = ${var.aws_secret_key}" >> /home/ec2-user/.aws/credentials
                  
                 # mkdir /home/ec2-user/ssl
                 # sudo chown ec2-user:ec2-user /home/ec2-user/ssl  
