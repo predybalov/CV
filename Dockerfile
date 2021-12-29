@@ -6,7 +6,7 @@ RUN apk update \
     && grep -q -E "^www-data:" /etc/group || addgroup --system www-data \
     && grep -q -E "^www-data:" /etc/passwd || adduser --system www-data www-data
 
-COPY index.html /data/www/
+COPY CV /data/CV
 COPY nginx.conf /etc/nginx/
 
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
