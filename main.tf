@@ -127,22 +127,7 @@ resource "aws_instance" "web" {
 
   user_data = <<-EOT
                  #!/bin/sh
-                # mkdir /home/ec2-user/.aws
-                 
-                # sudo chown ec2-user:ec2-user /home/ec2-user/.aws
-                 
-                # echo "[default]" >> /home/ec2-user/.aws/config
-                # echo "region = eu-north-1" >> /home/ec2-user/.aws/config
-                 
-                # echo "[default]" >> /home/ec2-user/.aws/credentials
-                # echo "aws_access_key_id = ${var.aws_key_id}" >> /home/ec2-user/.aws/credentials
-                # echo "aws_secret_access_key = ${var.aws_secret_key}" >> /home/ec2-user/.aws/credentials
-                 
-                # mkdir /home/ec2-user/ssl
-                # sudo chown ec2-user:ec2-user /home/ec2-user/ssl  
-
-                 aws s3 cp s3://gelios-cv /home/ec2-user/ssl --recursive
-
+                 aws s3 cp ${var.aws_cert_bucket} /home/ec2-user/ssl --recursive
                  docker run -d -p 80:80 -p 443:443 --mount type=bind,source=/home/ec2-user/ssl,target=/ssl ${var.docker_image}
                  EOT
 
