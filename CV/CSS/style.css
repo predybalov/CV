@@ -14,7 +14,7 @@ html, body {
     width: 400px;
     height: 100px;
     margin-left: 50px;
-    margin-top: 20px;
+    margin-top: 25px;
     float: left;
     font-family: Verdana;
     font-size: 30px;
@@ -24,13 +24,13 @@ html, body {
 
 #contacts {
     width: 300px;
-    height: 115px;
+    height: 120px;
     margin-left: 450px;
     font-family: Verdana;
     font-size: 16px;
     font-weight: normal;
     line-height: 0.6em;
-    margin-bottom: 3em;
+    margin-bottom: 0em;
 }
 
 .header_main {
