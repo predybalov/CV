@@ -8,6 +8,8 @@ html, body {
     width: 800px;
     height: 1150px;
     margin: auto;
+    padding-left: 10px;
+    padding-right: 10px;
   }
 
 #name {
