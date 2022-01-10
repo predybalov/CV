@@ -52,7 +52,7 @@ data "aws_iam_policy_document" "example" {
       "s3:ListBucket"
     ]
     resources = [
-      "arn:aws:s3:::gelios-cv"
+      "var.aws_cert_bucket_arn"
     ]
   }
   statement {
