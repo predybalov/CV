@@ -30,6 +30,12 @@ variable "aws_format" {
 
 variable "aws_cert_bucket" {
   type = string
-  description = "Certificate storage"
+  description = "Storage"
   default = "cb"
+}
+
+variable "aws_cert_bucket_arn" {
+  type = string
+  description = "Certificate storage"
+  default = "cba"
 }
