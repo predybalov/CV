@@ -52,7 +52,7 @@ data "aws_iam_policy_document" "example" {
       "s3:ListBucket"
     ]
     resources = [
-      "arn:aws:s3:::gelios-cv"
+      "${aws_cert_bucket_arn}"
     ]
   }
   statement {
@@ -61,7 +61,7 @@ data "aws_iam_policy_document" "example" {
       "s3:GetObject"
     ]
     resources = [
-      "arn:aws:s3:::gelios-cv/*"
+      "${aws_cert_bucket_arn}/*"
     ]
   }
 }
@@ -91,7 +91,7 @@ resource "aws_instance" "web" {
 
   user_data = <<-EOT
                  #!/bin/sh
-                 aws s3 cp arn:aws:s3:::gelios-cv /home/ec2-user/ssl --recursive
+                 aws s3 cp ${aws_cert_bucket} /home/ec2-user/ssl --recursive
                  docker run -d -p 80:80 -p 443:443 --mount type=bind,source=/home/ec2-user/ssl,target=/ssl ${var.docker_image}
                  EOT
 
