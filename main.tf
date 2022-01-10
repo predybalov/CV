@@ -52,7 +52,7 @@ data "aws_iam_policy_document" "example" {
       "s3:ListBucket"
     ]
     resources = [
-      arn:aws:s3:::gelios-cv
+      "arn:aws:s3:::gelios-cv"
     ]
   }
   statement {
@@ -61,7 +61,7 @@ data "aws_iam_policy_document" "example" {
       "s3:GetObject"
     ]
     resources = [
-      arn:aws:s3:::gelios-cv/*
+      "arn:aws:s3:::gelios-cv/*"
     ]
   }
 }
