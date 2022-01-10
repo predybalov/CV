@@ -18,7 +18,7 @@ terraform {
   
 provider "aws" {
 #  region = var.aws_region
-  region = "eu-north-1"
+  region = "${var.aws_region}"
 }
 
 # ssh-key for debug
