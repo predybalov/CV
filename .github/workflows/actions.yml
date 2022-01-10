@@ -1,8 +1,8 @@
 name: CICD
 
 on:
-  push:
-    branches: [ main ]
+#  push:
+#    branches: [ main ]
   workflow_dispatch:
 
 jobs:
@@ -55,8 +55,6 @@ jobs:
         run: >
           terraform apply
           -var 'docker_image="${{ secrets.DOCKER_HUB_USERNAME }}/cv:${{ github.sha }}"'
-          -var 'aws_key_id="${{ secrets.AWS_ACCESS_KEY_ID }}"'
-          -var 'aws_secret_key="${{ secrets.AWS_SECRET_ACCESS_KEY }}"'
           -var 'aws_region="eu-north-1"'
           -var 'aws_cert_bucket="${{ secrets.AWS_CERT_BUCKET }}"'
           -auto-approve
