@@ -53,8 +53,7 @@ html, body {
 .time {
     font-family: Verdana;
     font-size: 12px;
-    font-weight: lighter;
-    color: #A8A8A8;
+    color: #999999;
     margin-top: 0.8em;
     margin-bottom: 0.6em;
 }
