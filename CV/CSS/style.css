@@ -83,11 +83,10 @@ html, body {
 }
 
 .navigation a {    
-    padding-left: 3em;
-    padding-right: 3em;
+    padding-left: 7em;
+    padding-right: 7em;
     text-decoration: none;
     color: black;
-    
 }
 
 .navigation a:hover {
