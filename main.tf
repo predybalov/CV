@@ -96,7 +96,7 @@ resource "aws_instance" "web" {
                  EOT
 
   tags = {
-    Name = "DockerCV"
+    Name = "CV"
   }
   
   lifecycle {

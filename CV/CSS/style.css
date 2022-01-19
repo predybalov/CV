@@ -71,11 +71,12 @@ html, body {
     text-align: center;
     position: fixed;
     width: 800px;
-    height: 21px;
+    height: 25px;
 }
 
 .navigation ul {
     margin: 0;
+    margin-top: 3px;
 }
 
 .navigation li {
