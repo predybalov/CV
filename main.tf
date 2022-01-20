@@ -84,7 +84,7 @@ resource "aws_iam_instance_profile" "CV_profile" {
 resource "aws_instance" "CV_instance" {
   ami                    = "ami-0fbfc98b313840e86"
   instance_type          = "t3.micro"
-  vpc_security_group_ids = [aws_security_group.web-sg.id]
+  vpc_security_group_ids = [aws_security_group.CV_sg.id]
   iam_instance_profile   = aws_iam_instance_profile.CV_profile.name
   key_name               = "terradocker"
 
