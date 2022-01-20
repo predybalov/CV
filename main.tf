@@ -81,7 +81,7 @@ resource "aws_iam_instance_profile" "CV_profile" {
   role = aws_iam_role.CV_instance_role.name
 }
 
-resource "aws_instance" "web" {
+resource "aws_instance" "CV_instance" {
   ami                    = "ami-0fbfc98b313840e86"
   instance_type          = "t3.micro"
   vpc_security_group_ids = [aws_security_group.web-sg.id]
