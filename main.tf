@@ -90,7 +90,7 @@ resource "aws_instance" "web" {
 
   user_data = <<-EOT
                  #!/bin/sh
-                 aws s3 cp ${var.aws_cert_bucket} /home/ec2-user/ssl --recursive
+                 aws s3 cp s3://${var.aws_cert_bucket} /home/ec2-user/ssl --recursive
                  docker run -d -p 80:80 -p 443:443 --mount type=bind,source=/home/ec2-user/ssl,target=/ssl ${var.docker_image}
                  EOT
 
