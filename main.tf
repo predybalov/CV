@@ -5,13 +5,12 @@ terraform {
       version = "3.70.0"
     }
   }
-#  required_version = ">= 1.1.0"
 
   cloud {
     organization = "gelios"
 
     workspaces {
-      name = "terractions"
+      name = "CV"
     }
   }
 }
@@ -27,7 +26,7 @@ resource "aws_key_pair" "terradocker" {
 }
 
 
-data "aws_iam_policy_document" "instance-assume-role-policy" {
+data "aws_iam_policy_document" "CV_instance_assume_role" {
   statement {
     actions = ["sts:AssumeRole"]
 
@@ -38,21 +37,21 @@ data "aws_iam_policy_document" "instance-assume-role-policy" {
   }
 }
 
-resource "aws_iam_role" "instance" {
-  name               = "instance_role"
-  path               = "/system/"
-  assume_role_policy = data.aws_iam_policy_document.instance-assume-role-policy.json
+resource "aws_iam_role" "CV_instance_role" {
+  name               = "CV_instance_role"
+  path               = "/"
+  assume_role_policy = data.aws_iam_policy_document.CV_instance_assume_role.json
 }
 
 
-data "aws_iam_policy_document" "example" {
+data "aws_iam_policy_document" "S3" {
   statement {
     effect = "Allow"
     actions = [
       "s3:ListBucket"
     ]
     resources = [
-      "${var.aws_cert_bucket_arn}"
+      "arn:aws:s3:::${var.aws_cert_bucket}"
     ]
   }
   statement {
@@ -61,32 +60,32 @@ data "aws_iam_policy_document" "example" {
       "s3:GetObject"
     ]
     resources = [
-      "${var.aws_cert_bucket_arn}/*"
+      "arn:aws:s3:::${var.aws_cert_bucket}/*"
     ]
   }
 }
 
-resource "aws_iam_policy" "policydocument" {
-  name   = "tf-policydocument"
-  policy = data.aws_iam_policy_document.example.json
+resource "aws_iam_policy" "S3_cert_policy" {
+  name   = "S3_cert_policy"
+  policy = data.aws_iam_policy_document.S3.json
 }
 
 
-resource "aws_iam_role_policy_attachment" "test-attach" {
-  role       = aws_iam_role.instance.name
-  policy_arn = aws_iam_policy.policydocument.arn
+resource "aws_iam_role_policy_attachment" "S3_attach" {
+  role       = aws_iam_role.CV_instance_role.name
+  policy_arn = aws_iam_policy.S3_cert_policy.arn
 }
 
-resource "aws_iam_instance_profile" "test_profile" {
-  name = "test_profile"
-  role = aws_iam_role.instance.name
+resource "aws_iam_instance_profile" "CV_profile" {
+  name = "CV_profile"
+  role = aws_iam_role.CV_instance_role.name
 }
 
 resource "aws_instance" "web" {
   ami                    = "ami-0fbfc98b313840e86"
   instance_type          = "t3.micro"
   vpc_security_group_ids = [aws_security_group.web-sg.id]
-  iam_instance_profile   = aws_iam_instance_profile.test_profile.name
+  iam_instance_profile   = aws_iam_instance_profile.CV_profile.name
   key_name               = "terradocker"
 
   user_data = <<-EOT

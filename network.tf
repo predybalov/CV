@@ -1,6 +1,10 @@
 resource "aws_eip" "CV" {
   instance = aws_instance.web.id
   vpc      = true
+
+  tags = {
+    Name = "CV"
+  }
 }
 
 resource "aws_security_group" "web-sg" {

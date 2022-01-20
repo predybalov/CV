@@ -56,5 +56,4 @@ jobs:
           terraform apply
           -var 'docker_image="${{ secrets.DOCKER_HUB_USERNAME }}/cv:${{ github.sha }}"'
           -var aws_cert_bucket="${{ secrets.AWS_CERT_BUCKET }}"
-          -var aws_cert_bucket_arn="${{ secrets.AWS_CERT_BUCKET_ARN }}"
           -auto-approve
