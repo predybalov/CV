@@ -1,5 +1,5 @@
 resource "aws_eip" "CV" {
-  instance = aws_instance.CV_instance.id
+  instance = aws_instance.web.id
   vpc      = true
 
   tags = {
@@ -7,8 +7,8 @@ resource "aws_eip" "CV" {
   }
 }
 
-resource "aws_security_group" "CV_sg" {
-  name = "CV_sg"
+resource "aws_security_group" "web-sg" {
+  name = "sgCV"
   ingress {
     from_port   = 22
     to_port     = 22

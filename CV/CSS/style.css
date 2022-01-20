@@ -71,9 +71,8 @@ html, body {
     background: #E8E8E8;
     text-align: center;
     position: fixed;
-    width: 820px;
+    width: 800px;
     height: 25px;
-    margin-left: 10px;
 }
 
 .navigation ul {
