@@ -36,6 +36,16 @@ html, body {
     margin-bottom: 0em;
 }
 
+.contacts a {
+    text-decoration: none;
+    color: black;
+}
+
+.contacts a:hover {
+    color: blue;
+    text-decoration: underline;
+}
+
 .header_main {
     font-family: Verdana;
     font-size: 16px;
