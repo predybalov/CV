@@ -14,15 +14,15 @@ terraform {
     }
   }
 }
-  
+
 provider "aws" {
   region = "eu-north-1"
 }
 
 # ssh-key for debug
-resource "aws_key_pair" "terradocker" {
-  key_name   = "terradocker"
-  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC9MDLWvCRoaIoiTDHvgobpMyGVhDKsvCTqlrBUIrqcNhSigXUi6T9ImW4eiPJDnCkx5mmGpEt7HU7PZD8sZOkMxOcRNAYrJxK57Tq4ifS355DerQTa0UFJtyh7cCaUGrGLyud0WJ1pJeDV9cgbXprgUbqbiMOjuTueEnM8Nc5YpODq+jTwOF9A/3wuvLptx6h+rVQsZAKqHyF/IJvPfvMUN2B8GIKNCoZTVhcCg+6PUkX4S6aFLu4xngbykYSl56WfjFQpiwlNTElzA+uRkkPzsjmhLrz76LJGDC/v/3TlODdzLwfM5gK6u+TJLp+LfiVtYvHusi5WdP99XAniPjmneQD9epmWggkphv+xJZVPgtohRjedph9/r4q2FfNmWPBui4S3jeu5AOoXnfyEbgPO/vGdxuVyJ8pWam/jDAKVtCcUhlHx/tUC3C4tdZ9n4BfQre5zx9KLSwM3yWsjamNyIsz6Dyj5eEHDhweUyCKyYeK+QQBzYorPKz/xugIwIOU= gelios@gelios"
+resource "aws_key_pair" "CV_env" {
+  key_name   = "CV_env"
+  public_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICwh8BWW2nBQDcI2jPYNaP1rIAZZpbGGaO/WR3XEv7PI CV_env"
 }
 
 
@@ -86,7 +86,7 @@ resource "aws_instance" "CV_instance" {
   instance_type          = "t3.micro"
   vpc_security_group_ids = [aws_security_group.CV_sg.id]
   iam_instance_profile   = aws_iam_instance_profile.CV_profile.name
-  key_name               = "terradocker"
+  key_name               = "CV_env"
 
   user_data = <<-EOT
                  #!/bin/sh
@@ -97,7 +97,7 @@ resource "aws_instance" "CV_instance" {
   tags = {
     Name = "CV"
   }
-  
+
   lifecycle {
     create_before_destroy = true
   }
