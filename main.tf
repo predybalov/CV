@@ -19,7 +19,6 @@ provider "aws" {
   region = "eu-north-1"
 }
 
-# ssh-key for debug
 resource "aws_key_pair" "CV_env" {
   key_name   = "CV_env"
   public_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICwh8BWW2nBQDcI2jPYNaP1rIAZZpbGGaO/WR3XEv7PI CV_env"
@@ -84,7 +83,10 @@ resource "aws_iam_instance_profile" "CV_profile" {
 resource "aws_instance" "CV_instance" {
   ami                    = "ami-0fbfc98b313840e86"
   instance_type          = "t3.micro"
-  vpc_security_group_ids = [aws_security_group.CV_sg.id]
+  network_interface {
+    network_interface_id = aws_network_interface.CV_eni.id
+    device_index         = 0
+  }
   iam_instance_profile   = aws_iam_instance_profile.CV_profile.name
   key_name               = "CV_env"
 
