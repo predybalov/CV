@@ -105,7 +105,7 @@ resource "aws_instance" "CV_instance" {
     Name = "CV"
   }
 
-  lifecycle {
-    create_before_destroy = true
-  }
+#  lifecycle {
+#    create_before_destroy = true
+#  }
 }
