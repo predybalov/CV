@@ -89,6 +89,7 @@ resource "aws_instance" "CV_instance" {
   iam_instance_profile = aws_iam_instance_profile.CV_profile.name
   key_name             = "CV_env"
 
+# Try to move user data to the external file, but there are variable which need to be resolved by terraform, not by instance
   user_data = <<EOT
 
                 #!/bin/sh
@@ -105,6 +106,7 @@ resource "aws_instance" "CV_instance" {
     Name = "CV"
   }
 
+# Lifecycle does not work correctly when used separate ENI (known issue)
 #  lifecycle {
 #    create_before_destroy = true
 #  }
