@@ -90,7 +90,7 @@ resource "aws_instance" "CV_instance" {
   iam_instance_profile = aws_iam_instance_profile.CV_profile.name
   key_name             = "CV_env"
 
-  user_data = file("user-data.sh")
+  user_data = file("user_data.sh")
 
   tags = {
     Name = "CV"
