@@ -64,7 +64,7 @@ resource "aws_network_interface" "CV_eni" {
 
 
 resource "aws_security_group" "CV_sg" {
-  name = "CV_sg"
+  name   = "CV_sg"
   vpc_id = aws_vpc.CV_vpc.id
   ingress {
     from_port   = 22
