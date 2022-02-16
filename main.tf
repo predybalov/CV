@@ -42,7 +42,6 @@ resource "aws_iam_role" "CV_instance_role" {
   assume_role_policy = data.aws_iam_policy_document.CV_instance_assume_role.json
 }
 
-
 data "aws_iam_policy_document" "S3" {
   statement {
     effect = "Allow"
