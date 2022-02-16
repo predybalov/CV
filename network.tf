@@ -84,7 +84,7 @@ resource "aws_security_group" "CV_sg" {
   dynamic "ingress" {
     for_each = local.ingress_rules
 
-    ingress {
+    content {
       description      = ingress.value.description
       from_port        = ingress.value.port
       to_port          = ingress.value.port
