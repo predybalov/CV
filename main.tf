@@ -90,7 +90,17 @@ resource "aws_instance" "CV_instance" {
   iam_instance_profile = aws_iam_instance_profile.CV_profile.name
   key_name             = "CV_env"
 
-  user_data = file("user_data.sh")
+  user_data = <<EOT
+
+                #!/bin/sh
+                
+                #Copy certificate from S3 bucket
+                aws s3 cp s3://${var.aws_cert_bucket} /home/ec2-user/ssl --recursive
+                
+                #Run container
+                docker run -d -p 80:80 -p 443:443 --mount type=bind,source=/home/ec2-user/ssl,target=/ssl ${var.docker_image}
+
+                EOT
 
   tags = {
     Name = "CV"
