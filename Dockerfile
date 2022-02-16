@@ -9,4 +9,7 @@ RUN apk update \
 COPY CV /data/CV
 COPY nginx.conf /etc/nginx/
 
+EXPOSE 80/tcp
+EXPOSE 443/tcp
+
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
