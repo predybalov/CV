@@ -90,7 +90,7 @@ resource "aws_instance" "CV_instance" {
   key_name             = "CV_env"
   
   ebs_block_device {
-    device_name = "main_storage"
+    device_name = "/dev/sda1"
     volume_size = 3
   }
 
