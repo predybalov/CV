@@ -89,8 +89,7 @@ resource "aws_instance" "CV_instance" {
   iam_instance_profile = aws_iam_instance_profile.CV_profile.name
   key_name             = "CV_env"
   
-  ebs_block_device {
-    device_name = "/dev/sda1"
+  root_block_device {
     volume_size = 3
   }
 
