@@ -88,6 +88,10 @@ resource "aws_instance" "CV_instance" {
   }
   iam_instance_profile = aws_iam_instance_profile.CV_profile.name
   key_name             = "CV_env"
+  
+  ebs_block_device {
+    volume_size = 3
+  }
 
 # Try to move user data to the external file, but there are variable which need to be resolved by terraform, not by instance
   user_data = <<EOT
